@@ -1,0 +1,4 @@
+SELECT NAME FROM CUSTOMER
+WHERE REFEREE_ID IS NULL OR REFEREE_ID != 2;
+
+--to check if value is null you dont use = or != you use is null or is not null 
