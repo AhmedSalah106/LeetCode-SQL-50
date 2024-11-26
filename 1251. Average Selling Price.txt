@@ -1,0 +1,8 @@
+SELECT P.product_id , ISNULL(ROUND(1.0*SUM(US.UNITS*P.PRICE)/SUM(US.UNITS),2),'0') AS average_price 
+FROM Prices P
+LEFT OUTER JOIN UnitsSold US
+ON P.product_id = US.product_id
+AND US.purchase_date BETWEEN P.start_date AND P.end_date
+GROUP BY P.product_id
+
+--ISNULL is a built-in function used to replace any value equal to null with the value you detect
