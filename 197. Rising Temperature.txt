@@ -1,0 +1,7 @@
+SELECT C.Id 
+FROM Weather C 
+JOIN Weather P
+ON DATEDIFF(DAY,P.recordDate,C.recordDate)=1
+WHERE P.temperature < C.temperature
+
+--DATEDIFF is a builtin function take The unit of time to measure the difference and 2 dates
