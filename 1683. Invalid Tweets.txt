@@ -1,0 +1,4 @@
+SELECT tweet_id
+FROM Tweets
+WHERE LEN(content) > 15
+--LEN is a builtin function to get the length of words
