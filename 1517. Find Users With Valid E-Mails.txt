@@ -1,0 +1,3 @@
+SELECT * FROM USERS
+WHERE MAIL LIKE '[a-zA-Z]%@leetcode.com' --ENSURE THE FIRST CHAR BETWEEN A TO Z
+AND MAIL NOT LIKE '%[^a-zA-Z0-9_.-]%@leetcode.com' --Ensure there are no undesirable characters
