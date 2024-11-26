@@ -1,0 +1,18 @@
+--USING JOIN 
+SELECT C.name
+FROM Employee C
+JOIN Employee P
+ON C.ID = P.managerId
+GROUP BY C.ID,C.NAME
+HAVING COUNT(C.ID) >= 5;
+
+
+--USING SUBQUERY   # Not recommended
+SELECT name
+FROM Employee
+WHERE id IN (
+    SELECT managerId
+    FROM Employee
+    GROUP BY managerId
+    HAVING COUNT(*)>=5
+)
