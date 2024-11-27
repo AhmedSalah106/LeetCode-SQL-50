@@ -1,0 +1,13 @@
+SELECT ROUND(
+        100.0 * SUM(
+            CASE 
+                WHEN DATEDIFF(DAY, order_date, customer_pref_delivery_date) = 0 THEN 1 
+                ELSE 0 
+            END
+        ) / COUNT(*) ,2
+    ) AS immediate_percentage
+FROM (
+    SELECT *,ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_date) AS RN
+    FROM Delivery
+) AS T
+WHERE RN = 1
