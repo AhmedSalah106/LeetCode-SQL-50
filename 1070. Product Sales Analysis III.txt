@@ -1,24 +1,10 @@
-SELECT T.product_id, 
-       T.MN AS first_year, 
-       S.quantity, 
-       S.price
-FROM Sales S
-INNER JOIN (
-    SELECT product_id, MIN(year) AS MN
-    FROM Sales
-    GROUP BY product_id
-) AS T
-ON S.product_id = T.product_id AND S.year = T.MN;
+SELECT employee_id, department_id 
+FROM Employee
+WHERE primary_flag = 'Y'
+UNION 
+SELECT employee_id, MAX(department_id)
+FROM Employee
+GROUP BY employee_id
+HAVING COUNT(employee_id) = 1     
 
-
---
-
-
-WITH T AS (
-    SELECT product_id, MIN(year) AS MIN FROM Sales 
-    GROUP BY product_id 
-)
-
-SELECT s.product_id, s.year AS first_year, s.quantity, s.price 
-FROM Sales s
-INNER JOIN T ON T.product_id = s.product_id  AND s.year = T.MIN; 
+---- بتدمج الجدولين وتحذف المتكرر بحيث لو خدنا الصف تاني مع المره الاولي يتحذف UNION
