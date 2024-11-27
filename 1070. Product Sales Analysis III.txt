@@ -1,0 +1,24 @@
+SELECT T.product_id, 
+       T.MN AS first_year, 
+       S.quantity, 
+       S.price
+FROM Sales S
+INNER JOIN (
+    SELECT product_id, MIN(year) AS MN
+    FROM Sales
+    GROUP BY product_id
+) AS T
+ON S.product_id = T.product_id AND S.year = T.MN;
+
+
+--
+
+
+WITH T AS (
+    SELECT product_id, MIN(year) AS MIN FROM Sales 
+    GROUP BY product_id 
+)
+
+SELECT s.product_id, s.year AS first_year, s.quantity, s.price 
+FROM Sales s
+INNER JOIN T ON T.product_id = s.product_id  AND s.year = T.MIN; 
