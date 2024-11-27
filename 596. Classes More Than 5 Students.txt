@@ -1,0 +1,4 @@
+SELECT class    
+FROM Courses 
+GROUP BY CLASS
+HAVING COUNT(STUDENT) >=5
