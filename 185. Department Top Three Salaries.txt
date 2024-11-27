@@ -1,0 +1,9 @@
+WITH T AS(
+    SELECT *,DENSE_RANK()OVER(PARTITION BY departmentId ORDER BY SALARY DESC) AS DR
+    FROM Employee
+)
+SELECT D.NAME AS Department,T.NAME AS Employee,T.SALARY AS Salary
+FROM T
+JOIN Department D 
+ON D.ID = T.departmentId
+AND DR <= 3
