@@ -1,0 +1,7 @@
+SELECT MAX(NUM) AS num
+FROM(
+    SELECT  num
+    FROM MyNumbers
+    GROUP BY NUM
+    HAVING COUNT(NUM) = 1
+) AS T
