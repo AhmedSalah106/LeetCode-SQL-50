@@ -1,0 +1,18 @@
+WITH MINDAY AS (
+    SELECT 
+        player_id, 
+        MIN(event_date) AS first_date
+    FROM Activity
+    GROUP BY player_id
+),
+T AS (
+    SELECT 
+        C.player_id
+    FROM Activity C
+    JOIN MINDAY M
+    ON C.player_id = M.player_id 
+       AND DATEDIFF(DAY, M.first_date, C.event_date) = 1
+)
+SELECT 
+    ROUND(1.0 * COUNT(T.player_id) / (SELECT COUNT(DISTINCT player_id) FROM Activity), 2) AS fraction
+FROM T;
