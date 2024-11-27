@@ -1,0 +1,7 @@
+SELECT 
+    CASE
+        WHEN ID%2=1 AND ID = (SELECT MAX(ID) FROM Seat) THEN ID 
+        WHEN ID%2=1 THEN ID+1 ELSE ID -1 END
+    AS ID , student
+FROM Seat
+ORDER BY ID
