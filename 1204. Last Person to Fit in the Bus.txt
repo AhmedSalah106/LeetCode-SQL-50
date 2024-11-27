@@ -1,0 +1,9 @@
+WITH T AS(
+    SELECT person_id, person_name , SUM(weight) OVER(ORDER BY turn) AS TOTALSUM
+    FROM Queue
+)
+SELECT TOP 1 T.person_name
+FROM Queue Q 
+INNER JOIN T
+ON Q.person_id = T.person_id AND T.TOTALSUM <=1000
+ORDER BY TOTALSUM DESC
