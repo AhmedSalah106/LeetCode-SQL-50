@@ -1,0 +1,13 @@
+WITH ViewTable AS (
+    SELECT requester_id AS REQ
+    FROM RequestAccepted
+    UNION
+    SELECT accepter_id  
+    FROM RequestAccepted
+)
+SELECT TOP 1 V.REQ AS id , COUNT(V.REQ) AS num
+FROM ViewTable V
+INNER JOIN RequestAccepted R
+    ON V.REQ = R.requester_id OR V.REQ = R.accepter_id
+GROUP BY V.REQ
+ORDER BY num DESC;
