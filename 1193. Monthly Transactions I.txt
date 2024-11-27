@@ -1,0 +1,7 @@
+SELECT FORMAT(trans_date,'yyyy-MM') as month ,COUNTRY , COUNT(*) AS trans_count , 
+COUNT(IIF(state ='approved',1,NULL)) AS approved_count , SUM(AMOUNT) AS trans_total_amount ,
+ SUM( case when state='approved' then amount else 0 end) AS approved_total_amount
+FROM Transactions
+GROUP BY FORMAT(trans_date,'yyyy-MM') ,COUNTRY
+
+---(YOUR CASE,ANS IF TRUE, ANS IF FALSE)<=====IIF
