@@ -1,0 +1,9 @@
+WITH T AS(
+    SELECT pid,tiv_2015,tiv_2016,
+    COUNT(pid) OVER (PARTITION BY tiv_2015) AS CntTiv,
+    COUNT(pid) OVER (PARTITION BY lat,lon) AS CntLatLon
+    FROM Insurance
+)
+SELECT ROUND(SUM(tiv_2016),2) AS tiv_2016
+FROM T
+WHERE CntTiv > 1 AND CntLatLon = 1
