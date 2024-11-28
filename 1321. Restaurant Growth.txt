@@ -1,0 +1,13 @@
+WITH T AS(
+    SELECT   visited_on ,visited_on AS start_date, DATEADD(DAY, 6, visited_on) AS end_date ,TOTSUM
+        FROM(
+            SELECT DISTINCT visited_on,SUM(amount)OVER(PARTITION BY visited_on ORDER BY visited_on)AS TOTSUM
+            FROM Customer
+        )Q1
+)
+SELECT p.end_date AS visited_on , SUM(C.TOTSUM) AS amount , ROUND(SUM(CAST(C.TOTSUM AS DECIMAL(10, 2))) / 7.0, 2) AS average_amount
+FROM T C
+JOIN T P
+ON C.visited_on BETWEEN p.start_date AND p.end_date
+ AND p.end_date IN (SELECT visited_on FROM Customer)
+GROUP BY p.end_date
