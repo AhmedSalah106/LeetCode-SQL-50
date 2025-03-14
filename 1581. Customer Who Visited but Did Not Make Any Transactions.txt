@@ -5,3 +5,16 @@ ON V.visit_id = T.visit_id
 WHERE T.visit_id IS NULL
 GROUP BY V.customer_id
 ORDER BY count_no_trans
+
+
+/////////// ANOTHER SOLUTION
+
+SELECT customer_id ,COUNT(customer_id) AS count_no_trans
+FROM VISITS 
+WHERE visit_id NOT IN(
+    SELECT V.visit_id
+    FROM VISITS V 
+    INNER JOIN TRANSACTIONS T
+    ON V.visit_id = T.visit_id
+)
+GROUP BY customer_id
